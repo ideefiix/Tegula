@@ -32,3 +32,11 @@ C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Npgsql.dll
 C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Humanizer.dll
 C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\flind\Desktop\Tegula\api\bin\Debug\net6.0\System.Security.Permissions.dll

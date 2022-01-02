@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using api.Models;
 using api.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class PlayerController : ControllerBase
     {
         private readonly DBcontext _context;
@@ -19,8 +22,9 @@ namespace api.Controllers
             Player[] players = _context.Players.ToArray();
             return Ok(players);
         }
+
         [HttpGet("{id:int}")]
-        public IActionResult getPlayers([FromRoute] int id)
+        public IActionResult getPlayer([FromRoute] int id)
         {
             Player p = _context.Players.First(x => x.Id == id);
             if (p == null) return NotFound();
@@ -28,6 +32,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<Player>> createPlayer([FromBody] PlayerDTO dto){
             Player p = new Player()
             {
