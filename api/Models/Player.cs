@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace api.Models
 {
     public class Player
     {
-        public int Id {get; set;}
+        [Key]
         public string Name {get; set;}
     }
 }

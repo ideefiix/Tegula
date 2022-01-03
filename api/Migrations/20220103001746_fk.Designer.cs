@@ -11,8 +11,8 @@ using api.Models;
 namespace api.Migrations
 {
     [DbContext(typeof(DBcontext))]
-    [Migration("20211229210700_init")]
-    partial class init
+    [Migration("20220103001746_fk")]
+    partial class fk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,19 +25,39 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Player", b =>
                 {
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Player", (string)null);
+                });
+
+            modelBuilder.Entity("api.Models.Tile", b =>
+                {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("ownerName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player", (string)null);
+                    b.HasIndex("ownerName");
+
+                    b.ToTable("Tile", (string)null);
+                });
+
+            modelBuilder.Entity("api.Models.Tile", b =>
+                {
+                    b.HasOne("api.Models.Player", "owner")
+                        .WithMany()
+                        .HasForeignKey("ownerName");
+
+                    b.Navigation("owner");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,12 +19,16 @@ namespace api.Controllers
             Player[] players = _context.Players.ToArray();
             return Ok(players);
         }
-        [HttpGet("{id:int}")]
-        public IActionResult getPlayers([FromRoute] int id)
+        [HttpGet("{name}")]
+        public IActionResult getPlayer([FromRoute] string name)
         {
-            Player p = _context.Players.First(x => x.Id == id);
-            if (p == null) return NotFound();
+            try {
+            Player p = _context.Players.First(x => x.Name == name);
             return Ok(p);
+            }
+            catch (Exception){
+            return NotFound();
+            }
         }
 
         [HttpPost]
@@ -39,11 +43,11 @@ namespace api.Controllers
                 return Ok(p);
         }
 
-        [HttpDelete("delete/{id:int}")]
-        public async Task<ActionResult<Player>> deletePlayer([FromRoute] int id){
+        [HttpDelete("delete/{name}")]
+        public async Task<ActionResult<Player>> deletePlayer([FromRoute] string name){
             try
             {
-                Player p = _context.Players.First(x => x.Id == id);
+                Player p = _context.Players.First(x => x.Name == name);
                 if (p == null) return NotFound();
                 _context.Players.Remove(p);
                 await _context.SaveChangesAsync();
