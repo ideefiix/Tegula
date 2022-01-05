@@ -40,6 +40,8 @@ namespace api.Controllers
                 if (attackPlayer == null) return NotFound("Did not found the player");
 
                 tile.owner = attackPlayer;
+                tile.color = attackPlayer.Color;
+
                 await _context.SaveChangesAsync();
                 return Ok(tile);
             }catch (Exception){

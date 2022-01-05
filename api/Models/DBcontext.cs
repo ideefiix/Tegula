@@ -18,20 +18,20 @@ namespace api.Models
             modelBuilder.Entity<Tile>().ToTable("Tile");
 
             modelBuilder.Entity<Player>().HasData(
-                new Player{Name = "Larsson"}
+                new Player{Name = "Larsson", Color = "#665758"}
             );
 
             modelBuilder.Entity<Tile>().HasData(
-                new Tile {Id = 1, ownerId = "Larsson"},
-                new Tile {Id = 2, ownerId = "Larsson"},
-                new Tile {Id = 3, ownerId = "Larsson"},
-                new Tile {Id = 4, ownerId = "Larsson"},
-                new Tile {Id = 5, ownerId = "Larsson"},
-                new Tile {Id = 6, ownerId = "Larsson"},
-                new Tile {Id = 7, ownerId = "Larsson"},
-                new Tile {Id = 8, ownerId = "Larsson"},
-                new Tile {Id = 9, ownerId = "Larsson"},
-                new Tile {Id = 10, ownerId = "Larsson"}
+                new Tile {Id = 1, ownerId = "Larsson", color="#fcba03"},
+                new Tile {Id = 2, ownerId = "Larsson", color="#fc4e03"},
+                new Tile {Id = 3, ownerId = "Larsson", color="#035afc"},
+                new Tile {Id = 4, ownerId = "Larsson", color="#c203fc"},
+                new Tile {Id = 5, ownerId = "Larsson", color="#691c46"},
+                new Tile {Id = 6, ownerId = "Larsson", color="#2f732f"},
+                new Tile {Id = 7, ownerId = "Larsson", color="#5a947f"},
+                new Tile {Id = 8, ownerId = "Larsson", color="#bf7ca1"},
+                new Tile {Id = 9, ownerId = "Larsson", color="#de142c"},
+                new Tile {Id = 10, ownerId = "Larsson", color="#665758"}
             );
   
         }

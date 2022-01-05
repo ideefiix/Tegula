@@ -35,7 +35,8 @@ namespace api.Controllers
         public async Task<ActionResult<Player>> createPlayer([FromBody] PlayerDTO dto){
             Player p = new Player()
             {
-                Name = dto.Name
+                Name = dto.Name,
+                Color = "#fcba03"
             };
 
                 _context.Players.Add(p);

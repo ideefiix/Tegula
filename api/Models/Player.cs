@@ -6,5 +6,7 @@ namespace api.Models
     {
         [Key]
         public string Name {get; set;}
+
+        public string Color {get; set;}
     }
 }
