@@ -59,3 +59,31 @@ export async function createPlayer(playerName){
         })
     return response;
 }
+
+export async function getPlayer(playerName){
+    let response = await axios.get(`/player/${playerName}`)
+    .then(res => {
+        return res
+    })
+    .catch(e => {
+        console.log(e);
+        return null
+    })
+    return response;
+}
+
+export async function changeColor(playerName, color){
+    const data = {
+        name: playerName,
+        color: color
+    }
+
+    let response = await axios.put(`/player/changecolor`, data)
+    .then(res => {
+        return res
+    })
+    .catch(e => {
+        console.log("Error: " + e);
+    })
+    return response;
+}

@@ -3,46 +3,68 @@ import React, { useState, useEffect } from 'react'
 import PlayerBox from './components/PlayerBox';
 import Map from './components/Map';
 import { Row } from 'react-bootstrap';
-import { fetchTiles } from './AxiosRequest';
+import * as API from './AxiosRequest';
 
 function App() {
 
-  const [playerName, setplayerName] = useState("")
+  const [player, setPlayer] = useState(null)
   useEffect(async () => {
-    await initPlayerName()
+    await initPlayer()
   }, [])
 
-  async function initPlayerName() {
+  async function initPlayer() {
     let playerName = localStorage.getItem('playerName')
 
-    if (playerName){
-      setplayerName(playerName)
+    if (playerName) {
+      fetchPlayer(playerName)
     }
-    else{
-      playerName = prompt("Skriv ditt nick", "Kenta");
-      while (playerName.length < 1 || playerName.length > 20){
-        playerName = prompt("Ditt nick ska vara mellan 0 och 20 tecken långt!", "Duh");
-      }
-      localStorage.setItem('playerName', playerName)
-      localStorage.setItem('playerColor', '#033dfc')
-      setplayerName(playerName)
+    else {
+      createPlayer()
     }
   }
- 
+
+  async function fetchPlayer(playerName) {
+    let res = await API.getPlayer(playerName)
+    if (res != null){
+      setPlayer(res.data)
+    }
+    else{
+      //Player does not exist. Create a new one
+      createPlayer()
+    }
+  }
+
+  async function createPlayer() {
+    let playerName = prompt("Skriv ditt nick", "Kenta");
+    while (playerName.length < 1 || playerName.length > 20) {
+      playerName = prompt("Ditt nick ska vara mellan 0 och 20 tecken långt!", "Duh");
+    }
+    let res = await API.createPlayer(playerName)
+    localStorage.setItem('playerName', playerName)
+    let playerRes = await API.getPlayer(playerName)
+    setPlayer(playerRes.data)
+  }
+
+  //Triggers if player changes color
+  async function updatePlayer() {
+    let playerRes = await API.getPlayer(player.name)
+    setPlayer(playerRes.data)
+  }
+
 
   return (
-    playerName ?
-    <div className="App">
-      <Row className="justify-content-md-center">
-        <PlayerBox playerName={playerName} />
-      </Row>
-      <Row className="justify-content-md-center mt-5">
-        <Map />
-      </Row>
-    </div>
-    :
-    null
-    
+    player ?
+      <div className="App">
+        <Row className="justify-content-md-center">
+          <PlayerBox playerName={player.name} playerColor={player.color} updatePlayer={updatePlayer} />
+        </Row>
+        <Row className="justify-content-md-center mt-5">
+          <Map />
+        </Row>
+      </div>
+      :
+      null
+
   );
 }
 
