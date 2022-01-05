@@ -33,10 +33,13 @@ namespace api.Controllers
 
         [HttpPost]
         public async Task<ActionResult<Player>> createPlayer([FromBody] PlayerDTO dto){
+            var newColor = "#fcba03";
+            if(dto.Color != null) newColor = dto.Color;
+
             Player p = new Player()
             {
                 Name = dto.Name,
-                Color = "#fcba03"
+                Color = newColor
             };
 
                 _context.Players.Add(p);
@@ -44,7 +47,17 @@ namespace api.Controllers
                 return Ok(p);
         }
 
-        [HttpDelete("delete/{name}")]
+        [HttpPut("changecolor")]
+        public async Task<ActionResult<Player>> changeColor([FromBody] PlayerDTO dto){
+            Player? p = await _context.Players.FindAsync(dto.Name);
+            if (p == null) return NotFound();
+
+           p.Color = dto.Color;
+           await _context.SaveChangesAsync();
+           return Ok(p);
+        }
+
+        [HttpDelete("{name}")]
         public async Task<ActionResult<Player>> deletePlayer([FromRoute] string name){
             try
             {

@@ -4,6 +4,6 @@ namespace api.Models.Dtos
     {
         public string Name { get; set; }
 
-        public string Color {get; set;}
+        public string? Color {get; set;}
     }
 }
