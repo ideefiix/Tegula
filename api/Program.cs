@@ -8,9 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DBcontext>(options =>
             options.UseNpgsql("host=localhost;port=5432;database=Tegula;user id=postgres;password=postgres"));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "myFirstPolicy",
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:3000");
+                      });
+});
 
 var app = builder.Build();
 
@@ -23,6 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("myFirstPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
