@@ -24,6 +24,7 @@ function App() {
         playerName = prompt("Ditt nick ska vara mellan 0 och 20 tecken långt!", "Duh");
       }
       localStorage.setItem('playerName', playerName)
+      localStorage.setItem('playerColor', '#033dfc')
       setplayerName(playerName)
     }
   }
