@@ -17,7 +17,6 @@ const Map = (props) => {
     async function getTiles() {
         let tileResponse = await API.fetchTiles()
         tileResponse.data.sort((a, b) => (a.id > b.id) ? 1 : -1)
-        console.log(tileResponse.data);
         setTiles(tileResponse.data)
     }
 
@@ -38,7 +37,7 @@ const Map = (props) => {
             {
                 tiles.map(tile => {
                     return (
-                        <div onClick={() => selectTile(tile.id)} className='' style={{ width: '110px', height: '100px', backgroundColor: tile.color, cursor: 'pointer' }} key={tile.id}>
+                        <div onClick={() => selectTile(tile.id)} className='tile' style={{ width: '110px', height: '100px', backgroundColor: tile.color, cursor: 'pointer' }} key={tile.id}>
                             <h5>Område {tile.id}</h5>
                             <p style={{ overflow: 'hidden' }}>{tile.ownerId}</p>
                         </div>)

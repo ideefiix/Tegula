@@ -5,3 +5,12 @@
 .colorLink{
     cursor: pointer;
 }
+
+.tile:hover{
+    border-style: solid;
+}
+
+.tile:active{
+    border-style: solid;
+    border-color: #0d6efd;
+}
