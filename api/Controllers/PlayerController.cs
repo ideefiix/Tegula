@@ -19,6 +19,7 @@ namespace api.Controllers
             Player[] players = _context.Players.ToArray();
             return Ok(players);
         }
+        
         [HttpGet("{name}")]
         public IActionResult getPlayer([FromRoute] string name)
         {

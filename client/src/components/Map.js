@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Figure, Col, Row } from 'react-bootstrap'
-import { fetchTiles } from '../AxiosRequest'
+import { Card, Figure, Col, Row, Button } from 'react-bootstrap'
+import * as API from '../AxiosRequest';
 import './style.css'
 
-const Map = () => {
+const Map = (props) => {
     const [tiles, setTiles] = useState([])
+    const [selectedTile, setSelectedTile] = useState(null)
 
     useEffect(() => {
         getTiles()
@@ -14,22 +15,47 @@ const Map = () => {
     }, [])
 
     async function getTiles() {
-        let tileResponse = await fetchTiles()
-        setTiles(tileResponse.data)
+        let tileResponse = await API.fetchTiles()
+        tileResponse.data.sort((a, b) => (a.id > b.id) ? 1 : -1)
         console.log(tileResponse.data);
+        setTiles(tileResponse.data)
     }
+
+    async function selectTile(tileId){
+        let res = await API.fetchTile(tileId);
+        setSelectedTile(res.data)
+
+    }
+
+    async function attackTile(id, attackerName){
+        await API.attackTile(id, attackerName)
+        getTiles()
+    }
+
 
     return (
         <Row id="mapContainer" className='justify-content-center'>
             {
                 tiles.map(tile => {
                     return (
-                        <div className='' style={{ width: '110px', height: '100px', backgroundColor: tile.color }}>
+                        <div onClick={() => selectTile(tile.id)} className='' style={{ width: '110px', height: '100px', backgroundColor: tile.color, cursor: 'pointer' }} key={tile.id}>
                             <h5>Område {tile.id}</h5>
-                            <p style={{ overflow: 'hidden' }}>test</p>
+                            <p style={{ overflow: 'hidden' }}>{tile.ownerId}</p>
                         </div>)
 
                 })
+            }
+
+            {selectedTile === null ? 
+            null
+            :
+            <Card className='mt-5' style={{ width: '18rem' }}>
+                <Card.Title>Område {selectedTile.id}</Card.Title>
+                <Card.Body>
+                    <Card.Text>Ägs av <b>{selectedTile.ownerId}</b></Card.Text>
+                    <Button onClick={() => attackTile(selectedTile.id, props.playername)}>Erövra</Button>
+                </Card.Body>
+            </Card>
             }
         </Row>
 

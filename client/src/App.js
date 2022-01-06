@@ -8,6 +8,7 @@ import * as API from './AxiosRequest';
 function App() {
 
   const [player, setPlayer] = useState(null)
+
   useEffect(async () => {
     await initPlayer()
   }, [])
@@ -56,10 +57,10 @@ function App() {
     player ?
       <div className="App">
         <Row className="justify-content-md-center">
-          <PlayerBox playerName={player.name} playerColor={player.color} updatePlayer={updatePlayer} />
+          <PlayerBox playername={player.name} playercolor={player.color} updateplayer={updatePlayer} />
         </Row>
         <Row className="justify-content-md-center mt-5">
-          <Map />
+          <Map playername={player.name}/>
         </Row>
       </div>
       :

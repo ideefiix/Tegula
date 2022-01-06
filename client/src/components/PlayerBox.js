@@ -5,7 +5,7 @@ import * as API from '../AxiosRequest';
 
 const PlayerBox = (props) => {
     const [showColorPicker, setshowColorPicker] = useState(false)
-    const [playerColor, setplayerColor] = useState(props.playerColor)
+    const [playerColor, setplayerColor] = useState(props.playercolor)
 
     function handleColorChange(color){
         setplayerColor(color.hex)
@@ -13,13 +13,13 @@ const PlayerBox = (props) => {
 
     async function savePlayerColor(){
         setshowColorPicker(false)
-        let res = await API.changeColor(props.playerName, playerColor)
-        props.updatePlayer()
+        let res = await API.changeColor(props.playername, playerColor)
+        props.updateplayer()
     }
 
     return (
         <Card className='mt-3' style={{ width: '18rem' }}>
-            <Card.Title>{props.playerName}</Card.Title>
+            <Card.Title>{props.playername}</Card.Title>
             <Card.Body>
 
             {
