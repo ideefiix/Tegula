@@ -28,6 +28,8 @@ const Map = (props) => {
 
     async function attackTile(id, attackerName){
         await API.attackTile(id, attackerName)
+        props.updateplayer()
+        props.setattackIsReady(false)
         getTiles()
     }
 
@@ -52,7 +54,7 @@ const Map = (props) => {
                 <Card.Title>Område {selectedTile.id}</Card.Title>
                 <Card.Body>
                     <Card.Text>Ägs av <b>{selectedTile.ownerId}</b></Card.Text>
-                    <Button onClick={() => attackTile(selectedTile.id, props.playername)}>Erövra</Button>
+                    <Button disabled={!props.attackIsReady} onClick={() => attackTile(selectedTile.id, props.playername)}>Erövra</Button>
                 </Card.Body>
             </Card>
             }

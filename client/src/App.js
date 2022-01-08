@@ -8,9 +8,10 @@ import * as API from './AxiosRequest';
 function App() {
 
   const [player, setPlayer] = useState(null)
+  const [attackIsReady, setattackIsReady] = useState(false)
 
-  useEffect(async () => {
-    await initPlayer()
+  useEffect(() => {
+    initPlayer()
   }, [])
 
   async function initPlayer() {
@@ -26,10 +27,11 @@ function App() {
 
   async function fetchPlayer(playerName) {
     let res = await API.getPlayer(playerName)
-    if (res != null){
+    if (res != null) {
+      addPlayerProp(res)
       setPlayer(res.data)
     }
-    else{
+    else {
       //Player does not exist. Create a new one
       createPlayer()
     }
@@ -42,25 +44,37 @@ function App() {
     }
     let res = await API.createPlayer(playerName)
     localStorage.setItem('playerName', playerName)
-    let playerRes = await API.getPlayer(playerName)
-    setPlayer(playerRes.data)
+    initPlayer()
+  }
+
+  function addPlayerProp(res) {
+    let nextAtk = new Date(res.data.prevAttack)
+    nextAtk.setHours(nextAtk.getHours() + 3)
+    res.data.nextAttack = nextAtk;
   }
 
   //Triggers if player changes color
   async function updatePlayer() {
     let playerRes = await API.getPlayer(player.name)
+    addPlayerProp(playerRes)
     setPlayer(playerRes.data)
   }
+
+  //Triggers when attackTimer hits 0
+  function readyAttack(){
+    setattackIsReady(true);
+  }
+
 
 
   return (
     player ?
       <div className="App">
         <Row className="justify-content-md-center">
-          <PlayerBox playername={player.name} playercolor={player.color} updateplayer={updatePlayer} />
+          <PlayerBox player={player} updateplayer={updatePlayer} readyAttack={readyAttack}/>
         </Row>
         <Row className="justify-content-md-center mt-5">
-          <Map playername={player.name}/>
+          <Map playername={player.name} attackIsReady={attackIsReady} setattackIsReady={setattackIsReady} updateplayer={updatePlayer}/>
         </Row>
       </div>
       :
