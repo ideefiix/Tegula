@@ -9,23 +9,29 @@ namespace api.Controllers
     {
         private readonly DBcontext _context;
 
-        public TileController(DBcontext context){
+        public TileController(DBcontext context)
+        {
             _context = context;
         }
 
         [HttpGet]
-        public IActionResult getTiles(){
+        public IActionResult getTiles()
+        {
             Tile[] tiles = _context.Tiles.ToArray();
             return Ok(tiles);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Tile>> getTile([FromRoute] int id){
-            try{
+        public async Task<ActionResult<Tile>> getTile([FromRoute] int id)
+        {
+            try
+            {
                 Tile? tile = await _context.Tiles.FindAsync(id);
                 if (tile == null) return NotFound();
                 return Ok(tile);
-            }catch (Exception){
+            }
+            catch (Exception)
+            {
                 return BadRequest();
             }
         }
@@ -33,18 +39,31 @@ namespace api.Controllers
         [HttpPut("attack/{id:int}")]
         public async Task<ActionResult<Tile>> attackTile([FromRoute] int id, [FromBody] PlayerDTO attacker)
         {
-            try{
+            try
+            {
                 Player? attackPlayer = await _context.Players.FindAsync(attacker.Name);
                 Tile? tile = await _context.Tiles.FindAsync(id);
                 if (tile == null) return NotFound("Did not found the tile");
                 if (attackPlayer == null) return NotFound("Did not found the player");
 
-                tile.owner = attackPlayer;
-                tile.color = attackPlayer.Color;
+                TimeSpan attackInterval = DateTime.UtcNow - attackPlayer.prevAttack;
+                if (attackInterval.Hours >= 3)
+                {
+                    tile.owner = attackPlayer;
+                    tile.color = attackPlayer.Color;
+                    attackPlayer.prevAttack = DateTime.UtcNow;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
 
                 await _context.SaveChangesAsync();
                 return Ok(tile);
-            }catch (Exception){
+            }
+            catch (Exception)
+            {
                 return BadRequest();
             }
         }

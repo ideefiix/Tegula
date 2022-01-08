@@ -18,7 +18,7 @@ namespace api.Models
             modelBuilder.Entity<Tile>().ToTable("Tile");
 
             modelBuilder.Entity<Player>().HasData(
-                new Player{Name = "Larsson", Color = "#665758"}
+                new Player{Name = "Larsson", Color = "#665758", prevAttack=DateTime.UtcNow}
             );
 
             modelBuilder.Entity<Tile>().HasData(

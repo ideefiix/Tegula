@@ -8,5 +8,8 @@ namespace api.Models
         public string Name {get; set;}
 
         public string Color {get; set;}
+
+        //Player can attack every 3hours
+        public DateTime prevAttack {get; set;}
     }
 }
