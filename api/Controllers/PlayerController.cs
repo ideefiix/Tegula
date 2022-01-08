@@ -34,18 +34,21 @@ namespace api.Controllers
 
         [HttpPost]
         public async Task<ActionResult<Player>> createPlayer([FromBody] PlayerDTO dto){
+            Player? p = await _context.Players.FindAsync(dto.Name);
+            if (p != null) return BadRequest("Player already exist!");
+
             var newColor = "#fcba03";
             if(dto.Color != null) newColor = dto.Color;
 
-            Player p = new Player()
+            Player pNew = new Player()
             {
                 Name = dto.Name,
                 Color = newColor
             };
 
-                _context.Players.Add(p);
+                _context.Players.Add(pNew);
                 await _context.SaveChangesAsync();
-                return Ok(p);
+                return Ok(pNew);
         }
 
         [HttpPut("changecolor")]

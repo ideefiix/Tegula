@@ -45,8 +45,7 @@ namespace api.Controllers
                 Tile? tile = await _context.Tiles.FindAsync(id);
                 if (tile == null) return NotFound("Did not found the tile");
                 if (attackPlayer == null) return NotFound("Did not found the player");
-
-                TimeSpan attackInterval = DateTime.UtcNow - attackPlayer.prevAttack;
+                TimeSpan attackInterval = DateTime.Now - attackPlayer.prevAttack;
                 if (attackInterval.Hours >= 3)
                 {
                     tile.owner = attackPlayer;
