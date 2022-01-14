@@ -46,7 +46,8 @@ namespace api.Controllers
                 if (tile == null) return NotFound("Did not found the tile");
                 if (attackPlayer == null) return NotFound("Did not found the player");
                 TimeSpan attackInterval = DateTime.Now - attackPlayer.prevAttack;
-                if (attackInterval.Hours >= 3)
+
+                if (attackInterval.TotalHours >= 3)
                 {
                     tile.owner = attackPlayer;
                     tile.color = attackPlayer.Color;
