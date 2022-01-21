@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  api:
+    container_name: tegulaApi
+    build: 
+      context: /api
+      dockerfile: Dockerfile
+    ports:
+      - 7180:80
+    depends_on:
+      - "db"
+  client: 
+    container_name: tegulaClient
+    build:
+      context: /client
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes:
+      - /client:/client
+      - /client/node_modules
+    environment:
+    - NODE_ENV=production
+    - REACT_APP_PRODUCTION=true
+    - REACT_APP_BACKEND=tegulaApi
+  db:
+    container_name: tegulaDb
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: Tegula
+    ports:
+      - 5432:5432

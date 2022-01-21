@@ -1,0 +1,17 @@
+C:\Program Files\Git\app\api.exe
+C:\Program Files\Git\app\appsettings.Development.json
+C:\Program Files\Git\app\appsettings.json
+C:\Program Files\Git\app\appsettings.Production.json
+C:\Program Files\Git\app\api.dll
+C:\Program Files\Git\app\api.runtimeconfig.json
+C:\Program Files\Git\app\api.pdb
+C:\Program Files\Git\app\Microsoft.EntityFrameworkCore.dll
+C:\Program Files\Git\app\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Program Files\Git\app\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Program Files\Git\app\Microsoft.OpenApi.dll
+C:\Program Files\Git\app\Npgsql.dll
+C:\Program Files\Git\app\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Program Files\Git\app\Swashbuckle.AspNetCore.Swagger.dll
+C:\Program Files\Git\app\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Program Files\Git\app\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Program Files\Git\app\api.deps.json
