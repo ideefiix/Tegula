@@ -3,7 +3,7 @@ services:
   api:
     container_name: tegulaApi
     build: 
-      context: /api
+      context: ./api
       dockerfile: Dockerfile
     ports:
       - 7180:80
@@ -12,17 +12,16 @@ services:
   client: 
     container_name: tegulaClient
     build:
-      context: /client
+      context: ./client
       dockerfile: Dockerfile
     ports: 
       - 3000:3000
     volumes:
-      - /client:/client
-      - /client/node_modules
+      - ./client:/client
+      - ./client/node_modules
     environment:
     - NODE_ENV=production
     - REACT_APP_PRODUCTION=true
-    - REACT_APP_BACKEND=tegulaApi
   db:
     container_name: tegulaDb
     image: postgres

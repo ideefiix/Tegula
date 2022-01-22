@@ -11,7 +11,7 @@ function App() {
   const [attackIsReady, setattackIsReady] = useState(false)
 
   useEffect(() => {
-    initPlayer()
+    makeRequest()
   }, [])
 
   async function initPlayer() {
@@ -37,8 +37,18 @@ function App() {
     }
   }
 
+  async function makeRequest(){
+    let requestPath = prompt("Skriv en path", "http://localhost");
+   await fetch(requestPath)
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(re => console.log(re))
+
+    makeRequest()
+  }
+
   async function createPlayer() {
-    let playerName = prompt("Skriv ditt nick", "Kenta");
+    let playerName = prompt("Skriv en path", "Kenta");
     while (playerName.length < 1 || playerName.length > 20) {
       playerName = prompt("Ditt nick ska vara mellan 0 och 20 tecken långt!", "Duh");
     }
