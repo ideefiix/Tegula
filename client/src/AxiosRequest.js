@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND ? "http://" + process.env.REACT_APP_BACKEND : "http://localhost:5000";
+axios.defaults.baseURL = process.env.REACT_APP_PRODUCTION ? "http://localhost:7180" : "http://localhost:5000";
 // TOKEN IMPLEMENT LATER
 /* axios.interceptors.request.use(function (config) {
     const token = `Bearer ${sessionStorage.getItem('AUTH_TOKEN')}`;
@@ -61,7 +61,6 @@ export async function createPlayer(playerName){
 }
 
 export async function getPlayer(playerName){
-    console.log("Is this an IP: " + process.env.REACT_APP_BACKEND);
     let response = await axios.get(`/player/${playerName}`)
     .then(res => {
         return res
