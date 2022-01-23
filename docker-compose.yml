@@ -17,11 +17,10 @@ services:
     ports: 
       - 3000:3000
     volumes:
-      - ./client:/client
-      - ./client/node_modules
+      - /client:/client
+      - /client/node_modules
     environment:
     - NODE_ENV=production
-    - REACT_APP_PRODUCTION=true
   db:
     container_name: tegulaDb
     image: postgres
